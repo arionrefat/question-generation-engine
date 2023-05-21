@@ -8,6 +8,7 @@ export interface cgptParams {
   completionParams?: {
     model: string;
     temperature: number;
+    systemContent?: string;
   };
 }
 
@@ -29,7 +30,7 @@ async function cgptResponse(params: cgptParams): Promise<string> {
         {
           role: 'system',
           content:
-            'You are a question-answer generating machine. You can only reply in HTML format',
+            params.completionParams?.systemContent || 'You are a question-answer generating machine. You can only reply in JSON format',
         },
         {
           role: 'user',
